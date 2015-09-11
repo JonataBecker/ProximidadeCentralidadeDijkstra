@@ -4,7 +4,8 @@ import br.com.becker.janelas.Pricipal;
 import java.io.IOException;
 
 /**
- *
+ * Classe responsável pela exibição da proximidade de centralidade
+ * 
  * @author Jonata Becker
  */
 public class Centralidade {
