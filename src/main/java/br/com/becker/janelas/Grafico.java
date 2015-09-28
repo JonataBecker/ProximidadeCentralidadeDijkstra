@@ -1,8 +1,6 @@
 package br.com.becker.janelas;
 
-import java.awt.Color;
 import java.awt.Font;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -21,6 +19,7 @@ import org.jfree.data.general.DefaultPieDataset;
  */
 public class Grafico extends JPanel {
 
+    /** Lista de valores de proximidade */
     private final List<Float> valorProximidadeCentralidade;
 
     public Grafico(List<Float> valorProximidadeCentralidade) {
@@ -28,11 +27,17 @@ public class Grafico extends JPanel {
         addGrafico();
     }
 
+    /**
+     * Adiciona o gráfico na janela
+     */
     private void addGrafico() {
         DefaultPieDataset dataset = new DefaultPieDataset();
         int nodo = 0;
         for (Float valor : valorProximidadeCentralidade) {
             System.out.println(valor);
+            if (valor == Float.POSITIVE_INFINITY) {
+                valor = 0f;
+            }
             dataset.setValue("Nodo " + nodo, valor);
             nodo++;
         }
@@ -48,7 +53,7 @@ public class Grafico extends JPanel {
         plot.setNoDataMessage("No data");
         PieSectionLabelGenerator generator = new StandardPieSectionLabelGenerator("{0} = {1}");
         plot.setLabelGenerator(generator);
-        final JPanel panel = new ChartPanel(chart);        
+        final JPanel panel = new ChartPanel(chart);
         add(panel);
         SwingUtilities.invokeLater(new Runnable() {
 

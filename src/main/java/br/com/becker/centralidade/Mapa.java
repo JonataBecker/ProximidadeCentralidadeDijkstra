@@ -1,5 +1,6 @@
 package br.com.becker.centralidade;
 
+import br.com.becker.dijkstra.Vizinho;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -51,14 +52,14 @@ public class Mapa {
      * Retorna lista de nodos vizinhos de um determinado nodo
      * 
      * @param nodo Nodo
-     * @return {@code List<Integer>}
+     * @return {@code List<Vizinho>}
      */
-    public List<Integer> getVizinhos(int nodo) {
-        List<Integer> list = new ArrayList<>();
+    public List<Vizinho> getVizinhos(int nodo) {
+        List<Vizinho> list = new ArrayList<>();
         int indice = 0;
         for (Integer nodoMapa : mapa.get(nodo)) {
             if (nodoMapa > 0) {
-                list.add(indice);
+                list.add(new Vizinho(indice, nodoMapa));
             }
             indice++;
         }

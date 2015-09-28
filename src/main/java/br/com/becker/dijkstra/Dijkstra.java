@@ -11,9 +11,6 @@ import java.util.List;
  */
 public class Dijkstra {
 
-    /** Pesso padrão para processamento */
-    private static final short PESO = 1;
-
     /**
      * Executa calculo do menor caminho
      *
@@ -34,12 +31,25 @@ public class Dijkstra {
             w = getVerticeMenorDistancia(prioridade, distancia);
             // Remove vertice com menor distância
             prioridade.remove((Integer) w);
+            List<Vizinho> vizinhos = mapa.getVizinhos(w);
+            if (vizinhos.isEmpty()) {
+                distancia.set(w, 0);
+                continue;
+            }
             // Percorre vizinhos
-            for (Integer vizinho : mapa.getVizinhos(w)) {
-                int distanciaW = distancia.get(w) + PESO;
+            for (Vizinho vizinho : vizinhos) {
+                if (distancia.get(w) == Integer.MAX_VALUE) {
+                    distancia.set(w, 0);
+                    break;
+                }
+                int distanciaW = distancia.get(w) + vizinho.getPeso();
                 // Se distância for maior que distância processada
-                if (distancia.get(vizinho) > distanciaW) {
-                    distancia.set(vizinho, distanciaW);
+                if (distancia.get(vizinho.getVizinho()) > distanciaW) {
+                    distancia.set(vizinho.getVizinho(), distanciaW);
+                }
+                // se não possuir vizinhos
+                if (mapa.getVizinhos(vizinho.getVizinho()).isEmpty()) {
+                    prioridade.remove((Integer) vizinho.getVizinho());
                 }
             }
         }
@@ -87,6 +97,9 @@ public class Dijkstra {
             if (distancia.get(p) < menor) {
                 menor = p;
             }
+        }
+        if (menor == Integer.MAX_VALUE) {
+            return prioridade.get(0);
         }
         return menor;
     }

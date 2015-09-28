@@ -55,7 +55,7 @@ public class Pricipal extends JFrame {
      * Abre arquivo inicial casos exista
      */
     private void openInit() {
-        File file = new File("c:\\tmp\\csv.csv");
+        File file = new File("C:\\Users\\jonata-pc\\Downloads\\inputs\\exemplos\\inputs\\input-04.csv");
         if (file.exists()) {
             calcula(file);
         }

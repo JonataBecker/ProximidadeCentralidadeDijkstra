@@ -1,6 +1,7 @@
 package br.com.becker.janelas;
 
 import br.com.becker.centralidade.Mapa;
+import br.com.becker.dijkstra.Vizinho;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -17,10 +18,12 @@ import javax.swing.SwingUtilities;
  * @author Jonata Becker
  */
 public class Grafo extends JPanel {
-
+    
+    /** Tamanho do grafo */
     private static final int TAM_GRAFO = 50;
+    /** Centro do grafo */
     private static final int CENTER_GRAFO = TAM_GRAFO / 2;
-
+    /** Informações do mapa */
     private final Mapa mapa;
     
     public Grafo(Mapa mapa) {
@@ -35,6 +38,11 @@ public class Grafo extends JPanel {
         });
     }
 
+    /**
+     * Rotina responsável pelo desenho da janela
+     * 
+     * @param g 
+     */
     @Override
     public void paint(Graphics g) {
         super.paint(g);
@@ -49,9 +57,9 @@ public class Grafo extends JPanel {
         }
         // Desenha ligações
         for (int i = 0; i < mapa.getQuantidadeNodo(); i++) {
-            for (Integer vizinho : mapa.getVizinhos(i)) {
+            for (Vizinho vizinho : mapa.getVizinhos(i)) {
                 Point origem = list.get(i);
-                Point destio = list.get(vizinho);
+                Point destio = list.get(vizinho.getVizinho());
                 gd2.drawLine(origem.x + CENTER_GRAFO, origem.y + CENTER_GRAFO,
                         destio.x + CENTER_GRAFO, destio.y + CENTER_GRAFO);
             }
